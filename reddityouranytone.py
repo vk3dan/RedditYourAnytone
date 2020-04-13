@@ -27,7 +27,7 @@ if os.path.isfile(dbfile):
     else:
         print("user.csv current")
 else:
-    print("fetching DMR database file")
+    print("fetching DMR database file (~9MB")
     response = urllib2.urlopen(dburl)
     with open(dbfile, 'w') as f: f.write(response.read ())
 
@@ -44,7 +44,7 @@ if os.path.isfile(redditfile):
     else:
         print("nicks.csv current\n")
 else:
-    print("fetching reddit hams csv file\n")
+    print("fetching reddit hams csv file (<1MB)\n")
     response = urllib2.urlopen(redditurl)
     with open(redditfile, 'w') as f: f.write(response.read())
 

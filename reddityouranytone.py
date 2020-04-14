@@ -15,6 +15,9 @@ redditurl = "https://raw.githubusercontent.com/molo1134/qrmbot/master/lib/nicks.
 
 print ("\nRedditYourAnytone: A tool for downloading the current DMR database and reddit ham list\nand combining for upload to Anytone DMR HTs by vk3dan\n")
 
+if os.path.isfile(outputfile):
+    os.unlink(outputfile)
+
 # get the current database csv from radioid.net
 if os.path.isfile(dbfile):
     print("user.csv found")
@@ -27,7 +30,7 @@ if os.path.isfile(dbfile):
     else:
         print("user.csv current")
 else:
-    print("fetching DMR database file (~9MB")
+    print("fetching DMR database file (~9MB)")
     response = urllib2.urlopen(dburl)
     with open(dbfile, 'w') as f: f.write(response.read ())
 
@@ -64,6 +67,13 @@ rf = open(redditfile, 'r')
 csv_rf = csv.reader(rf)
 print ("finding redditors and updating info, this may take a while\n")
 for row in csv_rf:
-    df.loc[df["Callsign"] == row[0], ["City", "State"]] = row[1], row[2]
+    if row[1] and row[2]:
+        df.loc[df["Callsign"] == row[0], ["City", "State"]] = "IRC: "+row[1], row[2]
+    else: 
+        if row[1]:
+            df.loc[df["Callsign"] == row[0], ["City"]] = "IRC: "+row[1]
+        else:
+            if row[2]:
+                df.loc[df["Callsign"] == row[0], ["State"]] = row[2]
 df.to_csv(outputfile, index=False)
 print("output.csv created with "+repr(df.index.size)+" entries")

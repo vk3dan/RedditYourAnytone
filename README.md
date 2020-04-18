@@ -2,7 +2,7 @@
 
 RYA is a tool to fetch DMR ID database, convert it to Anytone D868/D878 CPS format and add known redditor u/names to the list so that this info is on the radio screen. It may work also on B-Tech DMR-6x2.
 
-If the DMR database and reddit hams csv files exist and are recent, the scrip will use them, otherwise they will be downloaded.
+If the DMR database and reddit hams csv files exist and are recent, the script will use them, otherwise they will be downloaded.
 
 This tool is written in python and requires pandas
 
